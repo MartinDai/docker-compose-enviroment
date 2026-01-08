@@ -156,6 +156,13 @@ docker-compose -f docker-compose-neo4j.yml up -d
 ```
 - Web页面：http://127.0.0.1:7474/browser/
 
+## New API服务
+
+```shell
+docker-compose -f docker-compose-new-api.yml up -d
+```
+- 管理页面：http://127.0.0.1:3001/
+
 ## OpenGauss服务
 
 ```shell

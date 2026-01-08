@@ -42,6 +42,9 @@ postgresql/data/
 
 mysql/data/
 
+new-api/logs/
+new-api/mysql_data/
+
 prometheus/data/
 prometheus/node1/data/
 prometheus/node2/data/

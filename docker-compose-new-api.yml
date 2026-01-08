@@ -1,0 +1,41 @@
+services:
+  new-api:
+    image: calciumion/new-api:v0.10.5
+    container_name: new-api
+    restart: always
+    command: --log-dir /app/logs
+    ports:
+      - "3001:3000"
+    volumes:
+      - ./new-api/logs:/app/logs
+    environment:
+      - SQL_DSN=root:martin-local@tcp(mysql:3306)/new-api
+      - REDIS_CONN_STRING=redis://redis
+      - TZ=Asia/Shanghai
+      - ERROR_LOG_ENABLED=true
+      - BATCH_UPDATE_ENABLED=true
+    depends_on:
+      - redis
+      - mysql
+    healthcheck:
+      test: [ "CMD-SHELL", "wget -q -O - http://localhost:3000/api/status | grep -o '\"success\":\\s*true' || exit 1" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+  redis:
+    image: redis:7.2.4
+    container_name: redis
+    restart: always
+  mysql:
+    image: mysql:8.2.0
+    container_name: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: martin-local
+      MYSQL_DATABASE: new-api
+    volumes:
+      - ./new-api/mysql_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+volumes:
+  mysql_data:
