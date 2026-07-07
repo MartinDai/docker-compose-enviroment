@@ -1,6 +1,6 @@
 services:
   kafka:
-    image: bitnami/kafka:4.0.0
+    image: soldevelo/kafka:4.0.0
     container_name: kafka
     volumes:
       ## 挂载位置（kafka镜像和宿主机器之间时间保持一致）
